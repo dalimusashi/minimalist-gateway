@@ -2,33 +2,35 @@
 
 A premium personal landing website for Gabriel Duro.
 
-## 🚀 Free Hosting Guide (Zero-Cost)
+## 🚀 How to Host for FREE ($0/mo)
 
-This site is built with Next.js, meaning you can host it for **$0.00/month** forever using Vercel or Firebase.
+This site is built with Next.js and is optimized for zero-cost hosting on **Vercel** or **Firebase**.
 
 ### Step 1: Push to GitHub
-Open the **Terminal** in this IDE and run these commands:
-1. `git init`
-2. `git add .`
-3. `git commit -m "initial commit"`
-4. Create a new repository on GitHub (do not initialize with README).
-5. Copy the "remote add origin" commands from GitHub and paste them here.
-6. `git push -u origin main`
+1. Create a new repository on [GitHub](https://github.com/new) (name it `minimalist-gateway`).
+2. Open the **Terminal** in this IDE and run:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial site launch"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
+   ```
 
-### Step 2: Host on Vercel (Recommended for $0/mo)
-1. Sign up at [Vercel.com](https://vercel.com).
+### Step 2: Deploy to Vercel (Recommended)
+1. Log in to [Vercel.com](https://vercel.com).
 2. Click **"Add New > Project"** and import your GitHub repo.
-3. **CRITICAL**: Add an Environment Variable named `RESEND_API_KEY` in Vercel settings.
+3. **Important**: Under "Environment Variables", add:
+   - `RESEND_API_KEY`: (Get this for free from [Resend.com](https://resend.com))
 4. Click **Deploy**.
 
-### Step 3: Connect Custom Domain
-In Vercel, go to **Settings > Domains** to add your custom domain. It will provide DNS records to add to your registrar.
+### Step 3: Connect Your Domain
+1. In your Vercel project, go to **Settings > Domains**.
+2. Type your domain (e.g., `gabrielduro.com`).
+3. Follow the DNS instructions provided to update your records at your domain registrar (GoDaddy, Namecheap, etc.).
 
-## 📧 Contact Form Setup
-Messages are automatically delivered to:
-*   **Primary**: `ahoy@vibedot.com`
-*   **Secondary**: `dalimusashi@gmail.com`
-
-**To enable emails:**
-1. Create a free account at [Resend.com](https://resend.com).
-2. Get your API Key and add it to your hosting provider's environment variables.
+## 📧 Contact Form Config
+Messages are automatically sent to:
+*   `ahoy@vibedot.com`
+*   `dalimusashi@gmail.com`
