@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 /**
  * Server action to handle dual-inbox email delivery.
- * Using Next.js Server Actions as the secure backend "Function" equivalent.
+ * Sends contact form data to both primary and secondary email addresses.
  */
 
 const contactSchema = z.object({
@@ -15,9 +15,8 @@ const contactSchema = z.object({
   subject: z.string().min(1),
 });
 
-// Placeholders for your configuration
-const RECIPIENT_EMAIL_1 = 'RECIPIENT_EMAIL_1@example.com';
-const RECIPIENT_EMAIL_2 = 'RECIPIENT_EMAIL_2@example.com';
+const RECIPIENT_EMAIL_1 = 'ahoy@vibedot.com';
+const RECIPIENT_EMAIL_2 = 'dalimusashi@gmail.com';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_placeholder_123';
 
 const resend = new Resend(RESEND_API_KEY);

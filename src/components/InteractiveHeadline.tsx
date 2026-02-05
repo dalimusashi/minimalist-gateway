@@ -64,7 +64,7 @@ export function InteractiveHeadline() {
       
       <nav className="mt-12 md:mt-16 flex gap-8 md:gap-12 text-sm md:text-base tracking-widest uppercase font-light">
         <a 
-          href="YOUR_PORTFOLIO_DRIVE_LINK" 
+          href="https://drive.google.com/drive/folders/16mdFkMqHBzXPm0BJ3-SlB5CPGOxCDck3?usp=drive_link" 
           className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100"
           target="_blank"
           rel="noopener noreferrer"
@@ -72,7 +72,7 @@ export function InteractiveHeadline() {
           Portfolio
         </a>
         <a 
-          href="YOUR_LINKEDIN_LINK" 
+          href="https://www.linkedin.com/in/gabrieldurodesign/" 
           className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100"
           target="_blank"
           rel="noopener noreferrer"
