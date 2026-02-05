@@ -3,9 +3,11 @@
 
 import { Resend } from 'resend';
 import { z } from 'zod';
+import { initializeFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 /**
- * Server action to handle dual-inbox email delivery.
+ * Server action to handle dual-inbox email delivery and Firestore logging.
  * Sends contact form data to both primary and secondary email addresses.
  */
 
@@ -32,28 +34,42 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
   const { name, email, subject } = result.data;
 
   try {
-    // Send to two recipients simultaneously
+    // 1. Log to Firestore (Backend Backup)
+    const { firestore } = initializeFirebase();
+    await addDoc(collection(firestore, 'contactFormSubmissions'), {
+      name,
+      email,
+      subject,
+      submittedAt: serverTimestamp(),
+      id: crypto.randomUUID(), // For consistency with backend.json expectations
+    });
+
+    // 2. Send to two recipients simultaneously via Resend
+    // Note: If you haven't added a domain to Resend yet, use 'onboarding@resend.dev'
     await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>', // Update with your verified domain
+      from: 'Gabriel Duro Design <onboarding@resend.dev>',
       to: [RECIPIENT_EMAIL_1, RECIPIENT_EMAIL_2],
-      subject: `New Contact: ${subject}`,
+      subject: `New Inquiry: ${subject}`,
       replyTo: email,
-      text: `Name: ${name}\nEmail: ${email}\n\nSubject: ${subject}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${subject}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #111;">
-          <h2 style="font-weight: 300; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Inquiry</h2>
-          <p><strong>From:</strong> ${name} (${email})</p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #111; border: 1px solid #eee;">
+          <h2 style="font-weight: 300; border-bottom: 1px solid #eee; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">New Contact</h2>
+          <p><strong>From:</strong> ${name} (<a href="mailto:${email}">${email}</a>)</p>
           <p><strong>Subject:</strong> ${subject}</p>
-          <div style="background: #f9f9f9; padding: 20px; margin-top: 20px;">
+          <div style="background: #fafafa; padding: 20px; margin-top: 20px; border-left: 4px solid #000;">
             ${subject}
           </div>
+          <p style="font-size: 10px; color: #999; margin-top: 30px; text-transform: uppercase; letter-spacing: 1px;">
+            Submitted via gabrielduro.com
+          </p>
         </div>
       `,
     });
 
     return { success: true };
   } catch (error: any) {
-    console.error('Email sending failed:', error);
-    return { success: false, error: error.message || 'Failed to send emails' };
+    console.error('Action failed:', error);
+    return { success: false, error: 'Service temporarily unavailable. Please try again.' };
   }
 }
