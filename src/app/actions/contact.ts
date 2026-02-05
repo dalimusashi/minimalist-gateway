@@ -20,7 +20,6 @@ const RECIPIENT_EMAIL_1 = 'ahoy@vibedot.com';
 const RECIPIENT_EMAIL_2 = 'dalimusashi@gmail.com';
 
 export async function sendContactEmail(formData: z.infer<typeof contactSchema>) {
-  // Validate input server-side
   const result = contactSchema.safeParse(formData);
   
   if (!result.success) {
@@ -32,7 +31,7 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
 
   if (!RESEND_API_KEY) {
     console.error('RESEND_API_KEY is missing from environment variables');
-    return { success: false, error: 'Email service not configured. Please add RESEND_API_KEY.' };
+    return { success: false, error: 'Email service not configured. Please add RESEND_API_KEY in your hosting settings.' };
   }
 
   const resend = new Resend(RESEND_API_KEY);
@@ -50,7 +49,7 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
 
     // 2. Send to both recipients via Resend
     await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
+      from: 'Gabriel Duro Site <onboarding@resend.dev>',
       to: [RECIPIENT_EMAIL_1, RECIPIENT_EMAIL_2],
       subject: `New Inquiry from ${name}`,
       replyTo: email,
