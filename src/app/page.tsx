@@ -1,4 +1,3 @@
-
 import { InteractiveHeadline } from "@/components/InteractiveHeadline";
 
 export default function Home() {
