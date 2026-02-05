@@ -5,11 +5,6 @@ import { z } from 'zod';
 import { initializeFirebase } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-/**
- * Server action to handle dual-inbox email delivery and Firestore logging.
- * Securely sends form data to Gabriel's chosen inboxes.
- */
-
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
@@ -30,15 +25,15 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
   if (!RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is missing from environment variables');
-    return { success: false, error: 'Email service not configured. Please add RESEND_API_KEY in your hosting settings.' };
+    return { success: false, error: 'Email service not configured. Please add RESEND_API_KEY in your settings.' };
   }
 
   const resend = new Resend(RESEND_API_KEY);
 
   try {
-    // 1. Log to Firestore (Backup)
     const { firestore } = initializeFirebase();
+    
+    // 1. Log to Firestore (Backup)
     addDoc(collection(firestore, 'contactFormSubmissions'), {
       name,
       email,
@@ -47,7 +42,7 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
       id: crypto.randomUUID(),
     });
 
-    // 2. Send to both recipients via Resend
+    // 2. Send to both recipients
     await resend.emails.send({
       from: 'Gabriel Duro Site <onboarding@resend.dev>',
       to: [RECIPIENT_EMAIL_1, RECIPIENT_EMAIL_2],
@@ -55,23 +50,18 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
       replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${subject}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #111; border: 1px solid #eee;">
-          <h2 style="font-weight: 300; border-bottom: 1px solid #eee; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">New Contact</h2>
-          <p><strong>From:</strong> ${name} (<a href="mailto:${email}">${email}</a>)</p>
-          <p><strong>Subject:</strong> ${subject}</p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #111;">
+          <h2 style="font-weight: 300; border-bottom: 1px solid #eee; padding-bottom: 10px; text-transform: uppercase;">New Contact</h2>
+          <p><strong>From:</strong> ${name} (${email})</p>
           <div style="background: #fafafa; padding: 20px; margin-top: 20px; border-left: 4px solid #000;">
             ${subject}
           </div>
-          <p style="font-size: 10px; color: #999; margin-top: 30px; text-transform: uppercase; letter-spacing: 1px;">
-            Submitted via gabrielduro.com
-          </p>
         </div>
       `,
     });
 
     return { success: true };
   } catch (error: any) {
-    console.error('Action failed:', error);
-    return { success: false, error: 'Service temporarily unavailable. Please try again later.' };
+    return { success: false, error: 'Service temporarily unavailable.' };
   }
 }

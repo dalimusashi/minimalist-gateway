@@ -4,34 +4,31 @@ A premium personal landing website for Gabriel Duro.
 
 ## 🚀 Free Hosting Guide (Zero-Cost)
 
-This site is built with Next.js, meaning you can host it for **$0.00/month** forever using these industry leaders:
+This site is built with Next.js, meaning you can host it for **$0.00/month** forever using Vercel or Firebase.
 
 ### Step 1: Push to GitHub
-If you don't see a download button, use the **Terminal** in your IDE:
-1. Initialize Git: `git init`
-2. Add files: `git add .`
-3. Commit: `git commit -m "initial commit"`
-4. Create a repo on GitHub and follow their "push an existing repository" commands.
+Open the **Terminal** in this IDE and run these commands:
+1. `git init`
+2. `git add .`
+3. `git commit -m "initial commit"`
+4. Create a new repository on GitHub (do not initialize with README).
+5. Copy the "remote add origin" commands from GitHub and paste them here.
+6. `git push -u origin main`
 
 ### Step 2: Host on Vercel (Recommended for $0/mo)
-1. Sign up at [Vercel.com](https://vercel.com) and click **"Add New > Project"**.
-2. Import your GitHub repo.
-3. **CRITICAL**: Add your `RESEND_API_KEY` to the **Environment Variables** in Vercel settings.
-4. Click **Deploy**. Vercel provides a free SSL certificate and automatic deployments.
+1. Sign up at [Vercel.com](https://vercel.com).
+2. Click **"Add New > Project"** and import your GitHub repo.
+3. **CRITICAL**: Add an Environment Variable named `RESEND_API_KEY` in Vercel settings.
+4. Click **Deploy**.
 
 ### Step 3: Connect Custom Domain
-Once deployed on Vercel, go to **Settings > Domains** to point your domain (e.g., `gabrielduro.com`) to the site. This is standard and doesn't cost extra from the host.
+In Vercel, go to **Settings > Domains** to add your custom domain. It will provide DNS records to add to your registrar.
 
 ## 📧 Contact Form Setup
-The form is currently set to send to:
+Messages are automatically delivered to:
 *   **Primary**: `ahoy@vibedot.com`
 *   **Secondary**: `dalimusashi@gmail.com`
 
 **To enable emails:**
 1. Create a free account at [Resend.com](https://resend.com).
-2. Get your API Key and add it as an Environment Variable named `RESEND_API_KEY` on your hosting provider.
-
-## Features
-*   **Dual-Inbox Delivery**: Messages hit both your primary and secondary emails simultaneously.
-*   **Firestore Backup**: All inquiries are logged in your database for peace of mind.
-*   **Minimalist UI**: Pure black/white design with cursor-reactive parallax.
+2. Get your API Key and add it to your hosting provider's environment variables.
