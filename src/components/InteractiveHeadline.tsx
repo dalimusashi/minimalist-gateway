@@ -1,7 +1,9 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { ContactModal } from './ContactModal';
 
 const ALTERNATE_PHRASES = ["stay curious.", "create boldly."];
 const MAIN_PHRASE = "don't be boring.";
@@ -10,15 +12,15 @@ export function InteractiveHeadline() {
   const [text, setText] = useState(MAIN_PHRASE);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const phraseIndexRef = useRef(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Only track if not on mobile (using matchMedia for better accuracy than window.innerWidth)
       if (window.matchMedia('(pointer: fine)').matches) {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20; // Max 10px shift
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
         const y = (e.clientY / window.innerHeight - 0.5) * 20;
         setMousePos({ x, y });
       }
@@ -77,13 +79,15 @@ export function InteractiveHeadline() {
         >
           LinkedIn
         </a>
-        <a 
-          href="mailto:YOUR_EMAIL@example.com" 
-          className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100"
+        <button 
+          onClick={() => setIsContactOpen(true)}
+          className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100 uppercase tracking-widest font-light"
         >
           Contact
-        </a>
+        </button>
       </nav>
+
+      <ContactModal open={isContactOpen} onOpenChange={setIsContactOpen} />
     </div>
   );
 }
