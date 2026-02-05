@@ -8,23 +8,20 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 /**
  * Server action to handle dual-inbox email delivery and Firestore logging.
- * Sends contact form data to both primary and secondary email addresses.
+ * Securely sends form data to Gabriel's chosen inboxes.
  */
 
 const contactSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  subject: z.string().min(1),
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(1, "Message is required"),
 });
 
 const RECIPIENT_EMAIL_1 = 'ahoy@vibedot.com';
 const RECIPIENT_EMAIL_2 = 'dalimusashi@gmail.com';
-const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_placeholder_123';
-
-const resend = new Resend(RESEND_API_KEY);
 
 export async function sendContactEmail(formData: z.infer<typeof contactSchema>) {
-  // Validate input server-side for security
+  // Validate input server-side
   const result = contactSchema.safeParse(formData);
   
   if (!result.success) {
@@ -32,24 +29,31 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
   }
 
   const { name, email, subject } = result.data;
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
+  if (!RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is missing from environment variables');
+    return { success: false, error: 'Email service not configured. Please add RESEND_API_KEY.' };
+  }
+
+  const resend = new Resend(RESEND_API_KEY);
 
   try {
-    // 1. Log to Firestore (Backend Backup)
+    // 1. Log to Firestore (Backup)
     const { firestore } = initializeFirebase();
     await addDoc(collection(firestore, 'contactFormSubmissions'), {
       name,
       email,
       subject,
       submittedAt: serverTimestamp(),
-      id: crypto.randomUUID(), // For consistency with backend.json expectations
+      id: crypto.randomUUID(),
     });
 
-    // 2. Send to two recipients simultaneously via Resend
-    // Note: If you haven't added a domain to Resend yet, use 'onboarding@resend.dev'
+    // 2. Send to both recipients via Resend
     await resend.emails.send({
-      from: 'Gabriel Duro Design <onboarding@resend.dev>',
+      from: 'Contact Form <onboarding@resend.dev>',
       to: [RECIPIENT_EMAIL_1, RECIPIENT_EMAIL_2],
-      subject: `New Inquiry: ${subject}`,
+      subject: `New Inquiry from ${name}`,
       replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${subject}`,
       html: `
@@ -70,6 +74,6 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
     return { success: true };
   } catch (error: any) {
     console.error('Action failed:', error);
-    return { success: false, error: 'Service temporarily unavailable. Please try again.' };
+    return { success: false, error: 'Service temporarily unavailable. Please try again later.' };
   }
 }

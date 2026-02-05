@@ -1,37 +1,38 @@
 
-# Minimalist Gateway
+# Gabriel Duro | Minimalist Gateway
 
 A premium personal landing website for Gabriel Duro.
 
+## 🚀 Free Hosting Guide (Zero-Cost)
+
+This site is built with Next.js, meaning you can host it for **$0.00/month** forever using these industry leaders:
+
+### Option A: Vercel (Recommended)
+1. Push this code to a **GitHub** repository.
+2. Sign up at [Vercel.com](https://vercel.com) and click **"Add New > Project"**.
+3. Import your GitHub repo.
+4. Add your `RESEND_API_KEY` to the **Environment Variables** in Vercel settings.
+5. Click **Deploy**. Vercel provides a free SSL certificate and automatic deployments.
+
+### Option B: Firebase App Hosting
+1. Go to the [Firebase Console](https://console.firebase.google.com/).
+2. Connect your GitHub repo to **App Hosting**.
+3. Use the **Spark (Free) Plan**. You will only stay within free limits for a personal site.
+
+## 📧 Contact Form Setup
+The form is currently set to send to:
+*   **Primary**: `ahoy@vibedot.com`
+*   **Secondary**: `dalimusashi@gmail.com`
+
+**To enable emails:**
+1. Create a free account at [Resend.com](https://resend.com).
+2. Get your API Key and add it as an Environment Variable named `RESEND_API_KEY` on your hosting provider (Vercel/Firebase).
+3. (Optional) Verify your custom domain in Resend to send from a professional address.
+
+## 🔗 Custom Domain
+Once deployed on Vercel or Firebase, go to **Settings > Domains** to point your domain (e.g., `gabrielduro.com`) to the site. This is standard and doesn't cost extra from the host.
+
 ## Features
-
-*   **Dual-Inbox Contact Form**: Submissions are automatically sent to `ahoy@vibedot.com` and `dalimusashi@gmail.com`.
-*   **Firestore Integration**: Every message is securely logged in your database for backup.
-*   **Cursor-reactive Parallax**: The headline reacts to mouse movement (Desktop).
-*   **Easter Egg**: Clicking the headline cycles through alternate phrases.
-*   **Minimalist Design**: Pure black background (#000) and white typography (#fff) using the Inter font family.
-
-## Deployment & Cost FAQ
-
-### 1. Should I publish before connecting a domain?
-**Yes.** Deploy the app first. Firebase will give you a `.web.app` address. Once you've confirmed everything looks perfect there, follow the "Custom Domain Setup" steps below.
-
-### 2. Is it free?
-*   **Firebase**: The "Blaze Plan" (Pay-as-you-go) is recommended for modern features, but for this site, you'll likely stay within the **Free Tier** limits (meaning $0 cost from Google).
-*   **Emails**: Using Resend's free tier allows up to **3,000 emails/month** for free.
-*   **Domain**: You only pay the standard annual fee to your domain registrar (e.g., GoDaddy, Namecheap).
-
-## Custom Domain Setup
-
-1.  **Open Firebase Console**: Go to [console.firebase.google.com](https://console.firebase.google.com/).
-2.  **Select Project**: Click on your active project.
-3.  **App Hosting**: Navigate to **App Hosting** in the left sidebar.
-4.  **Select Backend**: Click on your app's backend instance.
-5.  **Settings**: Click the **Settings** tab.
-6.  **Domains**: Click **Connect domain** and follow the DNS verification steps provided.
-
-## Personalization
-
-*   **Links**: Edit `src/components/InteractiveHeadline.tsx`.
-*   **Emails**: Edit the recipients in `src/app/actions/contact.ts`.
-*   **Footer**: Edit the name in `src/app/page.tsx`.
+*   **Dual-Inbox Delivery**: Messages hit both your primary and secondary emails.
+*   **Firestore Backup**: All inquiries are logged in your database for peace of mind.
+*   **Minimalist UI**: Pure black/white design with cursor-reactive parallax.

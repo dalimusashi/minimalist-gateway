@@ -52,7 +52,7 @@ export function InteractiveHeadline() {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         className={cn(
-          "parallax-element font-headline font-normal tracking-tighter text-6xl md:text-8xl lg:text-9xl cursor-pointer transition-transform duration-300 ease-out",
+          "parallax-element font-headline font-normal tracking-tighter text-6xl md:text-8xl lg:text-9xl cursor-pointer transition-transform duration-300 ease-out text-center",
           isHovering ? "opacity-90" : "opacity-100"
         )}
         style={{
@@ -62,7 +62,7 @@ export function InteractiveHeadline() {
         {text}
       </h1>
       
-      <nav className="mt-12 md:mt-16 flex gap-8 md:gap-12 text-sm md:text-base tracking-widest uppercase font-light">
+      <nav className="mt-12 md:mt-16 flex flex-wrap justify-center gap-8 md:gap-12 text-sm md:text-base tracking-widest uppercase font-light">
         <a 
           href="https://drive.google.com/drive/folders/16mdFkMqHBzXPm0BJ3-SlB5CPGOxCDck3?usp=drive_link" 
           className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100"
