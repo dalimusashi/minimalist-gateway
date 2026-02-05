@@ -10,7 +10,7 @@ export default function Home() {
 
       <footer className="absolute bottom-8 w-full text-center px-6">
         <p className="text-[10px] md:text-xs tracking-[0.2em] uppercase opacity-30 font-light">
-          Gabriel Duro (Dali)
+          Gabriel Duro
         </p>
       </footer>
     </main>
