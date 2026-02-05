@@ -1,4 +1,3 @@
-
 'use server';
 
 import { Resend } from 'resend';
@@ -41,7 +40,7 @@ export async function sendContactEmail(formData: z.infer<typeof contactSchema>) 
   try {
     // 1. Log to Firestore (Backup)
     const { firestore } = initializeFirebase();
-    await addDoc(collection(firestore, 'contactFormSubmissions'), {
+    addDoc(collection(firestore, 'contactFormSubmissions'), {
       name,
       email,
       subject,

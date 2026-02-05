@@ -1,4 +1,3 @@
-
 # Gabriel Duro | Minimalist Gateway
 
 A premium personal landing website for Gabriel Duro.

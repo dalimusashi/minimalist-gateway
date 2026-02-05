@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Minimalist Gateway | Multidisciplinary Designer',
+  title: 'Gabriel Duro | Multidisciplinary Designer',
   description: 'don\'t be boring. Personal landing page and portfolio gateway.',
 };
 
