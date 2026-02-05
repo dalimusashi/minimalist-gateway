@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "ContactFormSubmission": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactFormSubmission",
+      "type": "object",
+      "description": "Represents a contact form submission from the landing page.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the contact form submission."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the person submitting the form."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the person submitting the form.",
+          "format": "email"
+        },
+        "subject": {
+          "type": "string",
+          "description": "The subject of the message."
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "The timestamp when the form was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "subject",
+        "submittedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/contactFormSubmissions/{contactFormSubmissionId}",
+        "definition": {
+          "entityName": "ContactFormSubmission",
+          "schema": {
+            "$ref": "#/backend/entities/ContactFormSubmission"
+          },
+          "description": "Stores contact form submissions. Includes the 'id' field as the document ID.",
+          "params": [
+            {
+              "name": "contactFormSubmissionId",
+              "description": "The unique identifier for the contact form submission."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "Given the requirement to store contact form submissions, a single collection is sufficient. The structure prioritizes simplicity and security. All documents in the `contactFormSubmissions` collection share the same security profile, ensuring structural segregation. The `id` field provides a unique identifier for each submission. Timestamps ensure the order of operations and support integrity. The absence of nested data or user-specific subcollections simplifies security rules, making them easier to understand and maintain. This design minimizes the need for complex authorization logic, focusing on securing the entire collection rather than individual documents based on user roles or ownership, in line with Authorization Independence (CRITICAL) and QAPs requirements."
+  }
+}
