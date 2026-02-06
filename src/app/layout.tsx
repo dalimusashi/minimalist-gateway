@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dali — Multidisciplinary Designer",
+  title: "Dali - Multidisciplinary Designer",
   description: "don’t be boring. Personal portfolio gateway.",
   icons: {
     icon: [
