@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Gabriel Duro | Multidisciplinary Designer',
-  description: 'don\'t be boring. Personal landing page and portfolio gateway.',
+  title: 'Dali | Multidisciplinary Designer',
+  description: 'don\'t be boring. Personal portfolio gateway.',
 };
 
 export default function RootLayout({
