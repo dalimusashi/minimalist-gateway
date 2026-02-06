@@ -31,3 +31,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE / tool metadata
+.idx/
+.modified/
+.vscode/
+
