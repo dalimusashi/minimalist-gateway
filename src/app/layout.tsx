@@ -1,9 +1,27 @@
-import type {Metadata} from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'Dali | Multidisciplinary Designer',
-  description: 'don\'t be boring. Personal portfolio gateway.',
+  title: "Dali — Multidisciplinary Designer",
+  description: "don’t be boring. Personal portfolio gateway.",
+  icons: {
+    icon: [
+      { url: "/icons/favicon.ico", sizes: "any" },
+      { url: "/icons/favicon.svg", type: "image/svg+xml" },
+      { url: "/icons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
+  manifest: "/icons/site.webmanifest",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -13,12 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased bg-black text-white">{children}</body>
+      <body
+        className={`${inter.variable} antialiased bg-black text-white`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
