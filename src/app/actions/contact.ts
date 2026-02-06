@@ -31,7 +31,7 @@ export async function sendContactEmail(
     };
   }
 
-  const resend = new Resend(apiKey);
+  const resend = new Resend('re_LAN4UcCM_PoQSVpDyTTkc7VLiR1cquUkd');
 
   try {
     await resend.emails.send({
