@@ -31,7 +31,7 @@ export async function sendContactEmail(
     };
   }
 
-  const resend = new Resend('apiKey');
+  const resend = new Resend(apiKey);
 
   try {
     await resend.emails.send({
