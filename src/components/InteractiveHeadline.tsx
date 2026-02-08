@@ -11,7 +11,7 @@ const PORTFOLIO_URL =
   "https://drive.google.com/drive/folders/16mdFkMqHBzXPm0BJ3-SlB5CPGOxCDck3?usp=drive_link";
 const LINKEDIN_URL = "https://www.linkedin.com/in/gabrieldurodesign/";
 
-const CONTACT_EMAIL = "dalimusashi@gmail.com";
+const CONTACT_EMAIL = "ahoy@vibedot.com";
 const CONTACT_IMAGE_SRC = "/contact.png"; // put this file in /public/contact.jpg
 
 export function InteractiveHeadline() {
