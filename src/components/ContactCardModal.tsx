@@ -11,26 +11,31 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   email: string;
-  imageSrc: string; // e.g. "/contact.jpg"
+  imageSrc: string; // PNG path, e.g. "/contact.png"
 };
 
-export function ContactCardModal({ open, onOpenChange, email, imageSrc }: Props) {
+export function ContactCardModal({
+  open,
+  onOpenChange,
+  email,
+  imageSrc,
+}: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[360px] bg-black border-white/10 text-white p-8">
-        <DialogHeader className="mb-4">
-          <DialogTitle className="text-xl font-light tracking-tight uppercase">
+      <DialogContent className="sm:max-w-[420px] bg-black border-white/10 text-white p-10">
+        <DialogHeader className="mb-6">
+          <DialogTitle className="text-xl font-light tracking-tight uppercase text-center">
             Contact
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col items-center text-center gap-4">
+        <div className="flex flex-col items-center text-center gap-6">
           {/* Image */}
-          <div className="w-28 h-28 overflow-hidden rounded-full border border-white/10">
+          <div className="w-full max-w-[280px]">
             <img
               src={imageSrc}
               alt="Contact"
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-contain"
               loading="lazy"
             />
           </div>
