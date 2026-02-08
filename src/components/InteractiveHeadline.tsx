@@ -12,7 +12,7 @@ const PORTFOLIO_URL =
 const LINKEDIN_URL = "https://www.linkedin.com/in/gabrieldurodesign/";
 
 const CONTACT_EMAIL = "dalimusashi@gmail.com";
-const CONTACT_IMAGE_SRC = "/contact.jpg"; // put this file in /public/contact.jpg
+const CONTACT_IMAGE_SRC = "/contact.png"; // put this file in /public/contact.jpg
 
 export function InteractiveHeadline() {
   const [text, setText] = useState(MAIN_PHRASE);
