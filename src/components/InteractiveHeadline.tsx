@@ -8,7 +8,7 @@ const ALTERNATE_PHRASES = ["stay curious.", "create boldly."];
 const MAIN_PHRASE = "don't be boring.";
 
 const PORTFOLIO_URL =
-  "https://drive.google.com/drive/folders/16mdFkMqHBzXPm0BJ3-SlB5CPGOxCDck3?usp=drive_link";
+  "/Portfolio_Gabriel_Duro_2026.pdf";
 const LINKEDIN_URL = "https://www.linkedin.com/in/gabrieldurodesign/";
 
 const CONTACT_EMAIL = "ahoy@vibedot.com";
@@ -66,7 +66,7 @@ export function InteractiveHeadline() {
       <nav className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12 text-sm tracking-widest uppercase font-light">
         <a
           href={PORTFOLIO_URL}
-          className="hover:underline underline-offset-8 transition-all opacity-60 hover:opacity-100"
+          download className="..." 
           target="_blank"
           rel="noopener noreferrer"
         >
